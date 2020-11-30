@@ -24,7 +24,6 @@ driver.get(login_url)
 xpath_mail = "//html//body//div//div//form//table//tbody//tr[1]//td[2]//input"
 xpath_password = "//html//body//div//div//form//table//tbody//tr[2]//td[2]//input"
 xpath_submit = "//html//body//div//div//form//table//tbody//tr[3]//td//input"
-
 mail = driver.find_element_by_xpath(xpath_mail)
 mail.send_keys(os.environ.get('MYTUTOR_EMAIL'))
 password = driver.find_element_by_xpath(xpath_password)

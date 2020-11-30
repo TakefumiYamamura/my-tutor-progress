@@ -4,7 +4,7 @@ cal.init({
 	itemSelector: '#cal-heatmap',
 	domain: "month",
 	domainLabelFormat: '%Y-%m',
-	data: "http://localhost:8000/resources/scraping_results/epoch_time_records.json",
+	data: "resources/scraping_results/epoch_time_records.json",
 	start: new Date(now.getFullYear(), now.getMonth() - 11),
 	previousSelector: "#example-c-PreviousDomain-selector",
 	nextSelector: "#example-c-NextDomain-selector",

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: python3 -m http.server 8000
+    ports:
+      - 80:8000
+    volumes:
+      - .:/app

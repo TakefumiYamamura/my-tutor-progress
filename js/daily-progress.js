@@ -6,7 +6,7 @@ function readJSON(path) {
     return JSON.parse(xhr.response)
 } 
 
-var json_data = readJSON("../../../resources/scraping_results/epoch_time_records.json");
+var json_data = readJSON("resources/scraping_results/epoch_time_records.json");
 
 
 
