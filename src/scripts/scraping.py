@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import chromedriver_binary
 import time
 import csv
@@ -7,6 +8,7 @@ import re
 import json
 import os
 import datetime
+
 
 def parse_date_str(date_str):
 	strs = re.findall(r'\d+', date_str)
@@ -19,7 +21,15 @@ def parse_date_str_to_epoch_time(date_str):
 login_url = "https://mypage.mytutor-jpn.com/login.do"
 lesson_record_url = "https://mypage.mytutor-jpn.com/lessonrecord.do"
 
-driver = webdriver.Chrome()
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_prefs = {}
+chrome_options.experimental_options["prefs"] = chrome_prefs
+chrome_prefs["profile.default_content_settings"] = {"images": 2}
+
+driver = webdriver.Chrome(options=chrome_options)
 driver.get(login_url)
 xpath_mail = "//html//body//div//div//form//table//tbody//tr[1]//td[2]//input"
 xpath_password = "//html//body//div//div//form//table//tbody//tr[2]//td[2]//input"
@@ -28,6 +38,8 @@ mail = driver.find_element_by_xpath(xpath_mail)
 mail.send_keys(os.environ.get('MYTUTOR_EMAIL'))
 password = driver.find_element_by_xpath(xpath_password)
 password.send_keys(os.environ.get('MYTUTOR_PASS'))
+
+print(os.environ)
 
 time.sleep(1)
 
