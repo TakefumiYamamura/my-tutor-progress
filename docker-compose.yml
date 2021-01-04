@@ -9,6 +9,6 @@ services:
       - .:/app
   crawler:
     build: .
-    command: bash -c "while true; do export MYTUTOR_EMAIL=${MYTUTOR_EMAIL} && export MYTUTOR_PASS=${MYTUTOR_PASS} && python3 app/src/scripts/scraping.py sleep 3h; done"
+    command: bash -c "while true; do export MYTUTOR_EMAIL=${MYTUTOR_EMAIL} && export MYTUTOR_PASS=${MYTUTOR_PASS} && python3 app/src/scripts/scraping.py && sleep 3h; done"
     volumes:
       - .:/app
