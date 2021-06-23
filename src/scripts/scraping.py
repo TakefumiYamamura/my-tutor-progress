@@ -19,7 +19,7 @@ def parse_date_str_to_epoch_time(date_str):
 	return int(datetime.datetime(int(strs[0]), int(strs[1]), int(strs[2])).timestamp())
 
 login_url = "https://mypage.mytutor-jpn.com/login.do"
-lesson_record_url = "https://mypage.mytutor-jpn.com/lessonrecord.do"
+lesson_record_url = "https://mypage.mytutor-jpn.com/lessonrecord"
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -31,9 +31,9 @@ chrome_prefs["profile.default_content_settings"] = {"images": 2}
 
 driver = webdriver.Chrome(options=chrome_options)
 driver.get(login_url)
-xpath_mail = "//html//body//div//div//form//table//tbody//tr[1]//td[2]//input"
-xpath_password = "//html//body//div//div//form//table//tbody//tr[2]//td[2]//input"
-xpath_submit = "//html//body//div//div//form//table//tbody//tr[3]//td//input"
+xpath_mail = "/html/body/div/main/div/div/div/div/div/div[1]/div/div/div[2]/form/div[1]/div/input"
+xpath_password = "/html/body/div/main/div/div/div/div/div/div[1]/div/div/div[2]/form/div[2]/div/input"
+xpath_submit = "/html/body/div/main/div/div/div/div/div/div[1]/div/div/div[2]/form/div[3]/div/button"
 mail = driver.find_element_by_xpath(xpath_mail)
 mail.send_keys(os.environ.get('MYTUTOR_EMAIL'))
 password = driver.find_element_by_xpath(xpath_password)
@@ -54,7 +54,7 @@ next_url = lesson_record_url
 found_flag = True
 while found_flag:
 	driver.get(next_url)
-	dates = driver.find_elements_by_xpath("/html/body/div/div[3]/div[1]/table/tbody/tr")
+	dates = driver.find_elements_by_xpath("/html/body/div/main/div/div/div/div/div/div[2]/div[1]/div[2]/table/tbody/tr")
 	for i in range(len(dates)):
 		if(i == 0):
 			continue
@@ -63,10 +63,10 @@ while found_flag:
 			date_strs.append(dates[i].find_element_by_xpath("td[1]").text)
 		except:
 			print("could not found")
-	all_links = driver.find_elements_by_xpath("/html/body/div/div[3]/div[1]/div[1]/a")
+	all_links = driver.find_elements_by_xpath("/html/body/div/main/div/div/div/div/div/div[2]/div[1]/div[2]/div[2]/ul/nav/ul/li[15]/a")
 	found_flag = False
 	for link in all_links:
-		if(link.text=="Next"):
+		if(link.text=="›"):
 			print("found next")
 			found_flag = True
 			print(link.get_attribute("href"))
